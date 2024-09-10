@@ -48,11 +48,19 @@ def show_history():
     history_window = Toplevel(window)   # Создаем новое окно для отображения истории загрузок
     history_window.title("История загрузок")    # Заголовок окна
 
+    # Создаем и размещаем подпись для Listbox с путями файлов
+    file_label = Label(history_window, text="Файл")
+    file_label.grid(row=0, column=0, padx=(10, 0), pady=(10, 0))
+
     files_listbox = Listbox(history_window, width=50, height=20)     # Создаем Listbox для отображения путей файлов
-    files_listbox.grid(row=0, column=0, padx=(10, 0), pady=10)  # Размещаем Listbox в сетке
+    files_listbox.grid(row=1, column=0, padx=(10, 0), pady=10)  # Размещаем Listbox в сетке
+
+    # Создаем и размещаем подпись для Listbox со ссылками
+    link_label = Label(history_window, text="Ссылка")
+    link_label.grid(row=0, column=1, padx=(0, 10), pady=(10, 0))
 
     links_listbox = Listbox(history_window, width=50, height=20)    # Создаем Listbox для отображения ссылок на загрузки
-    links_listbox.grid(row=0, column=1, padx=(0, 10), pady=10)  # Размещаем Listbox в сетке
+    links_listbox.grid(row=1, column=1, padx=(0, 10), pady=10)  # Размещаем Listbox в сетке
 
     with open(history_file, "r") as f:  # Открываем файл истории для чтения
         history = json.load(f)  # Загружаем содержимое файла в список
