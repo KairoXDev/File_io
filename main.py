@@ -40,9 +40,30 @@ def upload():
         mb.showerror("Ошибка", f"Произошла ошибка: {e}")
 
 
+def show_history():
+    if not os.path.exists(history_file):    # Проверяем, существует ли файл истории
+        mb.showinfo("История","История загрузок пуста")     # Если файл истории не существует, показываем сообщение о пустой истории
+        return
+
+    history_window = Toplevel(window)   # Создаем новое окно для отображения истории загрузок
+    history_window.title("История загрузок")    # Заголовок окна
+
+    files_listbox = Listbox(history_window, width=50, height=20)     # Создаем Listbox для отображения путей файлов
+    files_listbox.grid(row=0, column=0, padx=(10, 0), pady=10)  # Размещаем Listbox в сетке
+
+    links_listbox = Listbox(history_window, width=50, height=20)    # Создаем Listbox для отображения ссылок на загрузки
+    links_listbox.grid(row=0, column=1, padx=(0, 10), pady=10)  # Размещаем Listbox в сетке
+
+    with open(history_file, "r") as f:  # Открываем файл истории для чтения
+        history = json.load(f)  # Загружаем содержимое файла в список
+        for item in history:    # Добавляем записи в Listbox
+            files_listbox.insert(END, item["file_path"])    # Вставляем пути файлов в первый Listbox
+            links_listbox.insert(END, item["download_link"])    # Вставляем ссылки на загрузки во второй Listbox
+
+
 window = Tk()       # Создаем основное окно приложения
 window.title("Сохранение файлов в облаке")
-window.geometry("350x80")
+window.geometry("350x100")
 
 # Применяем стиль (тему) из ttkthemes
 style = ThemedStyle(window)
@@ -50,11 +71,14 @@ style.set_theme('radiance')  # Можно выбрать любую доступ
 
 
 button = ttk.Button(text="Загрузить файл", command=upload)    # Создаем кнопку с текстом
-button.pack()
+button.pack()   # Размещаем кнопку в основном окне
 
 
-entry = ttk.Entry()     # Создаем текстовое поле для ввода данных
-entry.pack()
+entry = ttk.Entry()     # Создаем текстовое поле для вывода ссылки
+entry.pack()    # Размещаем текстовое поле вывода ссылки в основном окне
 
+
+history_button = ttk.Button(text="Показать историю", command=show_history)  # Создаем кнопку для отображения истории и привязываем её к функции show_history
+history_button.pack()   # Размещаем кнопку в основном окне
 
 window.mainloop()
