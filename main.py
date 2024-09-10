@@ -2,6 +2,8 @@ from tkinter import *       # Импортируем все классы и фу
 from tkinter import filedialog as fd      # Импортируем модуль для работы с диалогами файлов
 from tkinter import ttk     # Импортируем ttk, чтобы использовать более современные виджеты
 import requests     # Импортируем библиотеку requests для выполнения HTTP-запросов
+from ttkthemes import ThemedStyle  # Импортируем ThemedStyle из ttkthemes
+
 
 def upload():
     filepath = fd.askopenfilename()     # Открываем диалоговое окно для выбора файла и сохраняем путь к выбранному файлу
@@ -16,9 +18,10 @@ window = Tk()       # Создаем основное окно приложен�
 window.title("Сохранение файлов в облаке")
 window.geometry("350x80")
 
-# Добавляю стиль (тему)
-style = ttk.Style()
-style.theme_use('classic')  # Можно выбрать из доступных: 'clam', 'alt', 'default', 'classic'
+# Применяем стиль (тему) из ttkthemes
+style = ThemedStyle(window)
+style.set_theme('radiance')  # Можно выбрать любую доступную тему (arc, breeze, black, clearlooks, elegance, keramik, plastik, radiance, scidblue, scidgreen, scidpurple, scidred, scidyellow, tcl, winnative, xpnative)
+
 
 button = ttk.Button(text="Загрузить файл", command=upload)    # Создаем кнопку с текстом
 button.pack()
