@@ -3,7 +3,6 @@ from tkinter import filedialog as fd      # Импортируем модуль 
 from tkinter import ttk     # Импортируем ttk, чтобы использовать более современные виджеты
 import requests     # Импортируем библиотеку requests для выполнения HTTP-запросов
 
-
 def upload():
     filepath = fd.askopenfilename()     # Открываем диалоговое окно для выбора файла и сохраняем путь к выбранному файлу
     if filepath:       # Проверяем, что файл был выбран
@@ -15,7 +14,11 @@ def upload():
 
 window = Tk()       # Создаем основное окно приложения
 window.title("Сохранение файлов в облаке")
-window.geometry("400x200")
+window.geometry("350x80")
+
+# Добавляю стиль (тему)
+style = ttk.Style()
+style.theme_use('classic')  # Можно выбрать из доступных: 'clam', 'alt', 'default', 'classic'
 
 button = ttk.Button(text="Загрузить файл", command=upload)    # Создаем кнопку с текстом
 button.pack()
