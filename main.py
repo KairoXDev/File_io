@@ -50,6 +50,7 @@ def show_history():
 
     # Создаем Listbox для отображения истории загрузок
     history_listbox = Listbox(history_window, width=80, height=20)
+    history_listbox.configure(font=("Courier", 12, "normal"))   # Изменяем шрифт, размер и стиль
     history_listbox.pack(padx=10, pady=10)
 
 
