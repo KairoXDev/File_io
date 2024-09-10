@@ -48,25 +48,18 @@ def show_history():
     history_window = Toplevel(window)   # Создаем новое окно для отображения истории загрузок
     history_window.title("История загрузок")    # Заголовок окна
 
-    # Создаем и размещаем подпись для Listbox с путями файлов
-    file_label = Label(history_window, text="Файл")
-    file_label.grid(row=0, column=0, padx=(10, 0), pady=(10, 0))
+    # Создаем Listbox для отображения истории загрузок
+    history_listbox = Listbox(history_window, width=80, height=20)
+    history_listbox.pack(padx=10, pady=10)
 
-    files_listbox = Listbox(history_window, width=50, height=20)     # Создаем Listbox для отображения путей файлов
-    files_listbox.grid(row=1, column=0, padx=(10, 0), pady=10)  # Размещаем Listbox в сетке
-
-    # Создаем и размещаем подпись для Listbox со ссылками
-    link_label = Label(history_window, text="Ссылка")
-    link_label.grid(row=0, column=1, padx=(0, 10), pady=(10, 0))
-
-    links_listbox = Listbox(history_window, width=50, height=20)    # Создаем Listbox для отображения ссылок на загрузки
-    links_listbox.grid(row=1, column=1, padx=(0, 10), pady=10)  # Размещаем Listbox в сетке
 
     with open(history_file, "r") as f:  # Открываем файл истории для чтения
         history = json.load(f)  # Загружаем содержимое файла в список
-        for item in history:    # Добавляем записи в Listbox
-            files_listbox.insert(END, item["file_path"])    # Вставляем пути файлов в первый Listbox
-            links_listbox.insert(END, item["download_link"])    # Вставляем ссылки на загрузки во второй Listbox
+        # Добавляем записи в Listbox
+        for item in history:
+            # Форматируем строку для отображения
+            ent = f"Файл: {item['file_path']}, Ссылка: {item['download_link']}"
+            history_listbox.insert(END, ent)  # Вставляем строку в Listbox
 
 
 window = Tk()       # Создаем основное окно приложения
